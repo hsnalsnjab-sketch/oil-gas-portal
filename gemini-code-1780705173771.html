@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassan Ali Ibrahem | O&G Engineering Portal</title>
+    <style>
+        :root {
+            --primary-bg: #0d1b2a;
+            --card-bg: #1b263b;
+            --accent: #fca311;
+            --text-main: #e0e1dd;
+            --text-muted: #778da9;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        header h1 { margin: 0; color: var(--accent); }
+        header p { margin: 5px 0 0; color: var(--text-muted); }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            background-color: var(--card-bg);
+            color: var(--accent);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid var(--accent);
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-top: 4px solid var(--accent);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--text-muted);
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 8px;
+            background-color: #0d1b2a;
+            border: 1px solid var(--text-muted);
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button.btn-calc {
+            width: 100%;
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button.btn-calc:hover {
+            background-color: #e59400;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(252, 163, 17, 0.1);
+            border-left: 4px solid var(--accent);
+            font-weight: bold;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            color: white;
+            border: 1px solid var(--accent);
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="lang-toggle" onclick="alert('في المستقبل سيتم تفعيل الترجمة الشاملة لجميع النصوص هنا')">English / عربي</button>
+        <h1>Eng. Hassan Ali Ibrahem</h1>
+        <p>Oil & Gas Engineering Specialist</p>
+        
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/hassan-ali-ibrahem-5a50762b5?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank">LinkedIn</a>
+            <a href="https://www.researchgate.net/profile/Hassan-Ibrahem-3" target="_blank">ResearchGate</a>
+            <a href="https://t.me/hsnly_18" target="_blank">Telegram</a>
+            <a href="https://www.facebook.com/share/1HwYLqyA7t/?mibextid=wwXIfr" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/3c_79?igsh=Nzg1ZjV0d2ludnpr" target="_blank">Instagram</a>
+            <a href="https://www.threads.com/@3c_79?igshid=NTc4MTIwNjQ2YQ==" target="_blank">Threads</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Unit Converter (تحويل الوحدات)</h2>
+            <div class="input-group">
+                <label>Select Category</label>
+                <select id="uc-category">
+                    <option value="pressure">Pressure (psi to bar)</option>
+                    <option value="volume">Volume (bbl to m3)</option>
+                    <option value="length">Length (ft to m)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Value</label>
+                <input type="number" id="uc-value" placeholder="Enter value...">
+            </div>
+            <button class="btn-calc" onclick="convertUnits()">Convert</button>
+            <div id="uc-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <div class="card">
+            <h2>IOIP (Volumetric Method)</h2>
+            <div class="input-group"><label>Area (Acres) - A</label><input type="number" id="vol-a" value="1000"></div>
+            <div class="input-group"><label>Thickness (ft) - h</label><input type="number" id="vol-h" value="50"></div>
+            <div class="input-group"><label>Porosity (%) - Φ</label><input type="number" id="vol-poro" value="20"></div>
+            <div class="input-group"><label>Water Saturation (%) - Sw</label><input type="number" id="vol-sw" value="25"></div>
+            <div class="input-group"><label>Formation Vol Factor (rb/stb) - Boi</label><input type="number" id="vol-boi" value="1.2"></div>
+            <button class="btn-calc" onclick="calcVolumetric()">Calculate STOOIP</button>
+            <div id="vol-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <div class="card">
+            <h2>Monte Carlo IOIP (Probabilistic)</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Runs 1000 iterations based on input ranges.</p>
+            <div class="input-group">
+                <label>Porosity Range (Min - Max %)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="mc-poro-min" value="15">
+                    <input type="number" id="mc-poro-max" value="25">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Area Range (Acres)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="mc-a-min" value="800">
+                    <input type="number" id="mc-a-max" value="1200">
+                </div>
+            </div>
+            <button class="btn-calc" onclick="runMonteCarlo()">Run Simulation</button>
+            <div id="mc-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <div class="card">
+            <h2>IOIP (Material Balance)</h2>
+            <p style="font-size:0.9rem;">(F = N * Eo + m * N * Eg + We)</p>
+            <div class="input-group"><label>Cumulative Prod (Np)</label><input type="number" placeholder="STB"></div>
+            <div class="input-group"><label>Expansion of Oil (Eo)</label><input type="number" placeholder="rb/stb"></div>
+            <button class="btn-calc" onclick="alert('سيتم ربط معادلات Material Balance هنا في النسخة النهائية')">Calculate N</button>
+        </div>
+
+        <div class="card">
+            <h2>Recovery Factor & Reserves</h2>
+            <div class="input-group"><label>Estimated Ultimate Recovery (EUR)</label><input type="number" placeholder="MMSTB"></div>
+            <div class="input-group"><label>Initial Oil In Place (IOIP)</label><input type="number" placeholder="MMSTB"></div>
+            <button class="btn-calc" onclick="alert('سيتم برمجة دالة الـ RF هنا')">Calculate RF</button>
+        </div>
+
+        <div class="card">
+            <h2>Future Forecasting (Decline Curve)</h2>
+            <div class="input-group"><label>Initial Rate (qi)</label><input type="number" placeholder="bbl/day"></div>
+            <div class="input-group"><label>Decline Rate (D)</label><input type="number" placeholder="% per month"></div>
+            <div class="input-group"><label>Time (t in months)</label><input type="number" placeholder="Months"></div>
+            <button class="btn-calc" onclick="alert('سيتم توليد رسم بياني (Chart) للتنبؤ المستقبلي في هذا القسم')">Forecast Production</button>
+        </div>
+    </div>
+
+    <script>
+        // Unit Conversion Logic
+        function convertUnits() {
+            let cat = document.getElementById('uc-category').value;
+            let val = parseFloat(document.getElementById('uc-value').value);
+            if (isNaN(val)) return;
+            
+            let resText = "";
+            if (cat === 'pressure') resText = `${val} psi = ${(val * 0.0689476).toFixed(2)} bar`;
+            if (cat === 'volume') resText = `${val} bbl = ${(val * 0.158987).toFixed(2)} m³`;
+            if (cat === 'length') resText = `${val} ft = ${(val * 0.3048).toFixed(2)} m`;
+
+            let resBox = document.getElementById('uc-result');
+            resBox.style.display = 'block';
+            resBox.innerHTML = resText;
+        }
+
+        // Volumetric IOIP Logic ( N = 7758 * A * h * poro * (1-Sw) / Boi )
+        function calcVolumetric() {
+            let A = parseFloat(document.getElementById('vol-a').value);
+            let h = parseFloat(document.getElementById('vol-h').value);
+            let poro = parseFloat(document.getElementById('vol-poro').value) / 100;
+            let sw = parseFloat(document.getElementById('vol-sw').value) / 100;
+            let boi = parseFloat(document.getElementById('vol-boi').value);
+
+            let n = (7758 * A * h * poro * (1 - sw)) / boi;
+            let n_mmstb = (n / 1000000).toFixed(2);
+
+            let resBox = document.getElementById('vol-result');
+            resBox.style.display = 'block';
+            resBox.innerHTML = `STOOIP = ${n_mmstb} MMSTB`;
+        }
+
+        // Simple Monte Carlo Simulation Logic
+        function runMonteCarlo() {
+            let pMin = parseFloat(document.getElementById('mc-poro-min').value)/100;
+            let pMax = parseFloat(document.getElementById('mc-poro-max').value)/100;
+            let aMin = parseFloat(document.getElementById('mc-a-min').value);
+            let aMax = parseFloat(document.getElementById('mc-a-max').value);
+            
+            let results = [];
+            // Assume fixed h, Sw, Boi for this simple demo
+            let h = 50, sw = 0.25, boi = 1.2;
+
+            for(let i=0; i<1000; i++) {
+                let randPoro = pMin + Math.random() * (pMax - pMin);
+                let randA = aMin + Math.random() * (aMax - aMin);
+                let n = (7758 * randA * h * randPoro * (1 - sw)) / boi;
+                results.push(n / 1000000); // in MMSTB
+            }
+
+            // Sort results to find P90, P50, P10
+            results.sort((a, b) => b - a); // Descending order
+            
+            let p10 = results[Math.floor(1000 * 0.1)].toFixed(2);
+            let p50 = results[Math.floor(1000 * 0.5)].toFixed(2);
+            let p90 = results[Math.floor(1000 * 0.9)].toFixed(2);
+
+            let resBox = document.getElementById('mc-result');
+            resBox.style.display = 'block';
+            resBox.innerHTML = `
+                <strong>Simulation Results (1000 iterations):</strong><br>
+                P10 (Optimistic): ${p10} MMSTB<br>
+                P50 (Most Likely): ${p50} MMSTB<br>
+                P90 (Conservative): ${p90} MMSTB
+            `;
+        }
+    </script>
+</body>
+</html>
